@@ -10,16 +10,16 @@ LABELS = {"datasheet": "Datasheet", "buyer_form": "Buyer form", "call_notes": "C
 
 
 def render_markdown(data: dict) -> str:
+    sources = [LABELS.get(s, s).lower() for s in data["sources"]]
+
     lines = [
-        "# Pre-shipment compliance draft - SunBridge Trading",
-        "",
         f"**Product:** {data['target_model']}  ",
         f"**Destination:** {data['destination_country']}  ",
         "",
-        "> **This is not a compliance file.** It is a working draft built from the manufacturer",
-        f"> datasheet ({data['datasheet_url']}), the buyer form and call notes of 2024-10-03.",
-        "> Anything marked *pending from manufacturer*, *verbal only* or *conflict* is not",
-        "> verified evidence and must not be presented to the import agent as if it were.",
+        "> **This is not a compliance file.** It is a working draft built only from the",
+        f"> {', '.join(sources)}. Anything marked *pending from manufacturer*, *verbal only*",
+        "> or *conflict* is not verified evidence and must not be presented to the import",
+        "> agent as if it were.",
         "",
         "## Status at a glance",
         "",

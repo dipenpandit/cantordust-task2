@@ -8,7 +8,7 @@ Rules:
 1. Do not invent values.
 2. If a value is unclear, mark confidence as low.
 3. If a field is not present, do not include it.
-4. Focus on the 5 kW model, especially SUN-5K-G06P3 or SUN-5K-G06P3-EU-AM2-P1.
+4. Include the unit from the row header in the value, e.g. '11 kg' not '11'
 5. Prefer exact values from the source.
 6. Include a short quote or location hint if possible.
 7. Return valid JSON only.
@@ -77,18 +77,17 @@ importer_paperwork:
   - documents_attached
 """
 
-
 RECONCILE_SYSTEM_PROMPT = """You compare claims about the same field from different sources.
 For each field you are given every value that was extracted, with its source.
 Return exactly one verdict per field:
- 
-  agreed   : the sources are saying the same thing, even if worded differently.
-             "5 kW" and "5000 W" agree. "SUN-5K-G06P3" and
-             "SUN-5K-G06P3-EU-AM2-P1" agree on the model but one is abbreviated
-             -- say so in the note.
-  conflict : the sources state materially different things, e.g. two different
-             weights.
- 
+
+  agreed   : the sources mean the same thing even if they are written
+             differently. for example; a different unit or scale ("2 m" and "200 cm"), a
+             rounding, or one identifier being an abbreviated or partial form of
+             another. If one is a shortened form of the other, say so in the note.
+  conflict : the sources state materially different things. for example; two values that
+             cannot both be true of the same product.
+
 The note is one plain sentence a non-technical import agent can read. When the
 verdict is conflict, say what each source claims and which one is written
 evidence versus hearsay. Do NOT decide who is right. Never invent values."""

@@ -217,18 +217,19 @@ def assess_gaps(state: PipelineState) -> PipelineState:
  
     return {"coverage": coverage}
  
-def _ordered_model(facts) -> str:
-    """Extract the model number from the buyer form if available."""
-    for fact in facts:
-        if fact["field"] == "model_number" and fact["source"] == "buyer_form":
-            return fact["value"]
+def _stated(facts, field: str, default: str = "not stated in the sources") -> str:
+    """What the sources say about one field, buyer form first."""
+    for source in ("buyer_form", "datasheet", "call_notes"):
+        for fact in facts:
+            if fact["field"] == field and fact["source"] == source:
+                return fact["value"]
+    return default
 
 
 def draft_questions(state: PipelineState) -> PipelineState:
     """Every question traces back to a field that is missing, contested or verbal-only."""
     questions = []
-    model = _ordered_model(state["facts"])
-
+    model = _stated(state["facts"], "model_number", default="the ordered model")
     for row in state["coverage"]:
         label = row["field"].replace("_", " ")
         if row["status"] == "conflict":
@@ -250,21 +251,24 @@ def render_outputs(state: PipelineState) -> PipelineState:
     counts = defaultdict(int)
     for row in state["coverage"]:
         counts[row["status"]] += 1
-    
+
+    facts = state["facts"]
     final_json = {
-        "target_model": _ordered_model(state["facts"]),
-        "destination_country": "Bangladesh",
+        "buyer": _stated(facts, "buyer_legal_name", default="the importer"),
+        "target_model": _stated(facts, "model_number", default="the ordered model"),
+        "destination_country": _stated(facts, "destination_country"),
+        "sources": [s["source_type"] for s in state["parsed_sources"]],
         "summary": dict(counts),
         "coverage": state["coverage"],
         "questions_for_factory": state["questions"],
-        "raw_facts": state["facts"],
+        "raw_facts": facts,
     }
     final_md = render_markdown(final_json)
     
     output_dir = Path(state["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "compliance_facts.json").write_text(json.dumps(final_json, indent=2), encoding="utf-8")
-    (output_dir / "compliance_draft.md").write_text(final_md, encoding="utf-8")
+    (output_dir / "extracted.json").write_text(json.dumps(final_json, indent=2), encoding="utf-8")
+    (output_dir / "draft.md").write_text(final_md, encoding="utf-8")
     logger.info("Wrote outputs to {}", output_dir)
     
     return {"final_json": final_json, "final_md": final_md}
