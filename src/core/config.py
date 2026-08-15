@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
     
 class LLMProvider(enum.StrEnum):
     GROQ = "groq"
-    OPENAI = "openai"
+    GEMINI = "gemini"
 
 
 class Settings(BaseSettings):
@@ -12,8 +12,12 @@ class Settings(BaseSettings):
     # LLM Provider config
     LLM_PROVIDER: LLMProvider = LLMProvider.GROQ
     GROQ_API_KEY: str | None = None
-    OPENAI_API_KEY: str | None = None
-    LLM_MODEL: str = "gpt-oss"
+    GEMINI_API_KEY: str | None = None
+    NVIDIA_API_KEY: str | None = None
+    LLM_MODEL: str = "gemini-2.5-flash"
+
+    # Llama Parse config
+    LLAMA_CLOUD_API_KEY: str | None = None
 
     LOGGER_FORMAT: str = "[{time:YYYY-MM-DD HH:mm:ss}] | {level:<8} | {name}:{function}:{line} - {message}"
 

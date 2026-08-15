@@ -1,13 +1,13 @@
 import sys
 from loguru import logger
-from src.core import settings
+from src.core.config import settings
 
 def configure_logger(level: str = "INFO") -> None:
     logger.remove()
     logger.add(
         sys.stdout,
         level=level,
-        format=settings,
+        format=settings.LOGGER_FORMAT,
         enqueue=True,
         backtrace=False,
         diagnose=False,
