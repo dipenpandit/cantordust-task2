@@ -15,7 +15,6 @@ def render_markdown(data: dict) -> str:
         "",
         f"**Product:** {data['target_model']}  ",
         f"**Destination:** {data['destination_country']}  ",
-        f"**Generated:** {data['generated_at']} (automated draft)",
         "",
         "> **This is not a compliance file.** It is a working draft built from the manufacturer",
         f"> datasheet ({data['datasheet_url']}), the buyer form and call notes of 2024-10-03.",

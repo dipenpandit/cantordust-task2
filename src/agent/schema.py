@@ -10,6 +10,9 @@ class PipelineState(TypedDict):
     source_paths: dict[str, str]
     parsed_sources: list
     facts: list
+    reconciled: list
+    coverage: list
+    questions: list
     final_json: dict[str, Any]
     final_md: str
 
