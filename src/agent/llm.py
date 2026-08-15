@@ -24,7 +24,7 @@ def get_llm() -> BaseLanguageModel:
         )
     elif settings.LLM_PROVIDER == "nvidia":
         return ChatNVIDIA(
-            model="nvidia/nemotron-3-super-120b-a12b",
+            model="nvidia/nemotron-3-ultra-550b-a55b",
             api_key=settings.NVIDIA_API_KEY,
             temperature=1,
             top_p=0.95,

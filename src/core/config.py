@@ -5,12 +5,13 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class LLMProvider(enum.StrEnum):
     GROQ = "groq"
     GEMINI = "gemini"
+    NVIDIA = "nvidia"
 
 
 class Settings(BaseSettings):
 
     # LLM Provider config
-    LLM_PROVIDER: LLMProvider = LLMProvider.GROQ
+    LLM_PROVIDER: LLMProvider = LLMProvider.NVIDIA
     GROQ_API_KEY: str | None = None
     GEMINI_API_KEY: str | None = None
     NVIDIA_API_KEY: str | None = None

@@ -1,5 +1,5 @@
 import json
-from agent.schema import PipelineState, Reconciliation, Extraction
+from src.agent.schema import PipelineState, Reconciliation, Extraction
 from pathlib import Path
 from src.agent.llm import get_llama_cloud, call_structured
 from src.core.logger import logger
@@ -79,7 +79,7 @@ def parse_sources(state: PipelineState) -> PipelineState:
 
     parsed_sources.append(
         {
-            "source_type": "manufacturer_datasheet",
+            "source_type": "datasheet",
             "path": datasheet_path,
             "markdown": result.markdown_full or "",
         }
@@ -262,6 +262,7 @@ def render_outputs(state: PipelineState) -> PipelineState:
     final_md = render_markdown(final_json)
     
     output_dir = Path(state["output_dir"])
+    output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "compliance_facts.json").write_text(json.dumps(final_json, indent=2), encoding="utf-8")
     (output_dir / "compliance_draft.md").write_text(final_md, encoding="utf-8")
     logger.info("Wrote outputs to {}", output_dir)
