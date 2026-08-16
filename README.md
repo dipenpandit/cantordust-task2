@@ -1,4 +1,4 @@
-# SunBridge Task 2 (China → Bangladesh)
+# SunBridge Task 2 (China -> Bangladesh)
 
 An agentic pipeline that reads three incomplete, partly disagreeing sources and produces a
 compliance draft that SunBridge can circulate internally, every value attributed to the document
