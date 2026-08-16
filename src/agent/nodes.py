@@ -267,7 +267,7 @@ def render_outputs(state: PipelineState) -> PipelineState:
     
     output_dir = Path(state["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "extracted.json").write_text(json.dumps(final_json, indent=2), encoding="utf-8")
+    (output_dir / "extracted_facts.json").write_text(json.dumps(final_json, indent=2), encoding="utf-8")
     (output_dir / "draft.md").write_text(final_md, encoding="utf-8")
     logger.info("Wrote outputs to {}", output_dir)
     

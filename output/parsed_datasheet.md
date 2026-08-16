@@ -48,7 +48,7 @@ www.deyeinverter.com
 <tr><td>DC Injection Current (mA)</td><td colspan="8"><0.5%</td></tr>
 <tr><td>Grid Frequency Range</td><td colspan="8">45-55 or 55-65 (Optional)</td></tr>
 <tr><th>Efficiency</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-<tr><td>Max. Efficiency</td><td>98.1%</td><td>98.2%</td><td colspan="4">98.3%</td><td colspan="2">98.5%</td></tr>
+<tr><td>Max. Efficiency</td><td>98.1%</td><td>98.2%</td><td colspan="4">98.3%</td><td>98.5%</td><td></td></tr>
 <tr><td>Euro Efficiency</td><td colspan="8">97.5%</td></tr>
 <tr><td>MPPT Efficiency</td><td colspan="8">>99%</td></tr>
 <tr><th>Protection</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>

@@ -14,24 +14,11 @@ T = TypeVar("T")
 
 # @lru_cache(maxsize=1)
 def get_llm():
-    if settings.LLM_PROVIDER == "gemini":
-        return ChatGoogleGenerativeAI(
-            model=settings.GEMINI_MODEL,
-            api_key=settings.GEMINI_API_KEY
-        )
-    elif settings.LLM_PROVIDER == "groq":
-        return ChatGroq(
-            api_key=settings.GROQ_API_KEY,
-            model=settings.GROQ_MODEL,
-        )
-    elif settings.LLM_PROVIDER == "nvidia":
-        return ChatNVIDIA(
-            model="nvidia/nemotron-3-ultra-550b-a55b",
-            api_key=settings.NVIDIA_API_KEY,
-            temperature=0,
-            top_p=0.95,
-            max_tokens=4096,
-        )
+    return ChatGoogleGenerativeAI(
+        model=settings.GEMINI_MODEL,
+        api_key=settings.GEMINI_API_KEY
+    )
+
 
 def _extract_json_object(text: str) -> str:
     match = re.search(r"```json\s*(\{.*\})\s*```", text, flags=re.DOTALL | re.IGNORECASE)
