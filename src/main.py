@@ -21,7 +21,7 @@ def main() -> int:
     graph = build_graph()
 
     graph_view = graph.get_graph()
-    logger.info(logger.info("LangGraph Mermaid:\n{}",graph_view.draw_ascii()))
+    logger.info(logger.info("LangGraph Graph:\n{}",graph_view.draw_ascii()))
     with open("langgraph.png", "wb") as f:
         f.write(graph_view.draw_mermaid_png())
 
@@ -30,11 +30,11 @@ def main() -> int:
     logger.info("Done. {}", result["final_json"]["summary"])
  
     output_dir = Path(args.output_dir)
-    logger.info(f"  {output_dir / 'compliance_draft.md'}   <- hand this to the import agent")
-    logger.info(f"  {output_dir / 'compliance_facts.json'} <- structured output, source-attributed")
+    logger.info(f"  {output_dir / 'draft.md'}   <- final draft, human-readable")
+    logger.info(f"  {output_dir / 'extracted_facts.json'} <- extracted facts from the three sources")
     return 0
  
- 
+
 if __name__ == "__main__":
     main()
 
