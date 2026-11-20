@@ -12,8 +12,6 @@ The pipeline extracts facts from each source and compares them to the checklist,
 git clone https://github.com/dipenpandit/cantordust-task2.git
 cd cantordust-task2
 
-uv venv
-source .venv/bin/activate      # Windows: .venv\Scripts\activate
 uv sync
 
 # Create a .env file and enter your API keys (look at .env.example for the format)
